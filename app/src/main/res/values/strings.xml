@@ -16,4 +16,12 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Button strings -->
+    <string name="play_string">PLAY</string>
+    <string name="stats_string">STATS</string>
+    <string name="dbwipe_string">Delete previous scores</string>
+
+    <!-- Text item strings -->
+    <string name="difficulty_string">Set difficulty</string>
 </resources>
