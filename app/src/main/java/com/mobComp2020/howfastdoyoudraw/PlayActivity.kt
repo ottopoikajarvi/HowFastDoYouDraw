@@ -1,12 +1,12 @@
-package com.MobComp2020.howfastdoyoudraw
+package com.mobComp2020.howfastdoyoudraw
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class HighScoreActivity : AppCompatActivity() {
+class PlayActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_high_score)
+        setContentView(R.layout.activity_play)
     }
 }

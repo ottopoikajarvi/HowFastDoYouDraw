@@ -1,4 +1,4 @@
-package com.MobComp2020.howfastdoyoudraw
+package com.mobComp2020.howfastdoyoudraw
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

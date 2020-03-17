@@ -1,4 +1,4 @@
-package com.MobComp2020.howfastdoyoudraw
+package com.mobComp2020.howfastdoyoudraw
 
 import org.junit.Test
 
