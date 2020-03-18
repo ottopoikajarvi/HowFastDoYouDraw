@@ -1,5 +1,6 @@
 package com.mobComp2020.howfastdoyoudraw
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -24,6 +25,12 @@ class PlayActivity : AppCompatActivity() {
         //Skip current figure
         skip_button.setOnClickListener {
             //TODO
+        }
+
+        //Back button back to main menu
+        back_from_play.setOnClickListener {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

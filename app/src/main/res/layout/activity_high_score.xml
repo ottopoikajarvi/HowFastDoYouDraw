@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HighScoreActivity">
 
+    <ImageButton
+        android:id="@+id/back_from_stats"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_24px"
+        android:background="?selectableItemBackgroundBorderless" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
