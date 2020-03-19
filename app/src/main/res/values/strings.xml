@@ -21,7 +21,16 @@
     <string name="play_string">PLAY</string>
     <string name="stats_string">STATS</string>
     <string name="dbwipe_string">Delete previous scores</string>
+    <string name="motionswitch_string">Motion controls</string>
+    <string name="scorewipe_string">Wipe previous scores</string>
 
     <!-- Text item strings -->
     <string name="difficulty_string">Set difficulty</string>
+    <string name="custom_settings_string">Custom game settings</string>
+
+
+    <!-- Alert strings -->
+    <string name="confirm_string">Delete all previous scores?</string>
+    <string name="yes_string">Yes</string>
+    <string name="cancel_string">Cancel</string>
 </resources>

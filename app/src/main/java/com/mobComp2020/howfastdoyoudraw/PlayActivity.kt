@@ -29,8 +29,7 @@ class PlayActivity : AppCompatActivity() {
 
         //Back button back to main menu
         back_from_play.setOnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }
