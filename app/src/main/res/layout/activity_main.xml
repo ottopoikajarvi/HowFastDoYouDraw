@@ -73,11 +73,11 @@
         app:layout_constraintVertical_bias="0.0">
 
         <RadioButton
-            android:id="@+id/easy_button"
+            android:id="@+id/easy_button_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="easy"
+            android:text="@string/easy_string"
             android:textSize="18sp" />
 
         <RadioButton
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="normal"
+            android:text="@string/normal_string"
             android:textAlignment="textStart"
             android:textSize="18sp" />
 
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="hard"
+            android:text="@string/hard_string"
             android:textSize="18sp" />
 
         <RadioButton
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="custom"
+            android:text="@string/custom_string"
             android:textSize="18sp" />
     </RadioGroup>
 

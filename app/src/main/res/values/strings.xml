@@ -24,9 +24,18 @@
     <string name="motionswitch_string">Motion controls</string>
     <string name="scorewipe_string">Wipe previous scores</string>
 
+    <!-- Radio button strings -->
+    <string name="easy_string">Easy</string>
+    <string name="normal_string">Normal</string>
+    <string name="hard_string">Hard</string>
+    <string name="custom_string">Custom</string>
+
     <!-- Text item strings -->
     <string name="difficulty_string">Set difficulty</string>
     <string name="custom_settings_string">Custom game settings</string>
+    <string name="shape_setting_string">Shape difficulty</string>
+    <string name="line_setting_string">Line width</string>
+    <string name="game_time_string">Game length</string>
 
 
     <!-- Alert strings -->
