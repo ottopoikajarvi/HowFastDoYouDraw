@@ -11,6 +11,8 @@ class PlayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
+        //Hide the submit results button until the game ends
+        submit_results_button.visibility = View.INVISIBLE
 
         //Start the game
         start_button.setOnClickListener {
