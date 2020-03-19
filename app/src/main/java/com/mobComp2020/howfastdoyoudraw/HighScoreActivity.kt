@@ -13,8 +13,7 @@ class HighScoreActivity : AppCompatActivity() {
 
         //Back button to main menu
         back_from_stats.setOnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }
