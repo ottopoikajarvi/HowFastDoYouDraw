@@ -42,4 +42,16 @@
     <string name="confirm_string">Delete all previous scores?</string>
     <string name="yes_string">Yes</string>
     <string name="cancel_string">Cancel</string>
+
+    <!-- PlayActivity Button etc strings -->
+    <string name="timer_text">1:00</string>
+    <string name="start_game_button">Click to start the game</string>
+    <string name="skip_figure_button">SKIP</string>
+    <string name="submit_score_button">Submit the results and go back to main menu</string>
+
+    <string name="game_end_text">Game ended</string>
+    <string name="you_scored_text">Your score: </string>
+    <string name="score_text_default">0</string>
+    <string name="name_text">Your name:</string>
+    <string name="name_edit_default">ABC</string>
 </resources>

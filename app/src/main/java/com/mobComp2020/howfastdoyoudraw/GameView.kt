@@ -24,6 +24,9 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         //
+        canvas.apply {
+            drawCircle(400.0f, 400.0f, 100.0f, paint)
+        }
     }
 
 }
