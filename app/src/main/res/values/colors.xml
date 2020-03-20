@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#005904</color>
     <color name="colorPrimaryDark">#001E01</color>
-    <color name="colorAccent">#DAE1DC</color>
-    <color name="colorBackground">#BDF878</color>
-    <color name="buttonColor">#ffa726</color>
+    <color name="colorAccent">@color/buttonColor</color>
+    <color name="colorBackground">#c5e1a5</color>
+    <color name="buttonColor">#ffcc80</color>
     <color name="radioButtonColor">#000000</color>
 </resources>
