@@ -16,5 +16,5 @@ interface HighScoreDao {
     fun insert(highScore: HighScore)
 
     @Query("SELECT * FROM highScores WHERE difficulty = :diff ORDER BY score DESC")
-    fun getHighScores(diff: Int): List<HighScore>
+    fun getHighScores(diff: Int?): List<HighScore>
 }

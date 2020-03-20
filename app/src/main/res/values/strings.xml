@@ -36,6 +36,10 @@
     <string name="shape_setting_string">Shape difficulty</string>
     <string name="line_setting_string">Line width</string>
     <string name="game_time_string">Game length</string>
+    <string name="hard_leaderboard">Leaderboard: Hard</string>
+    <string name="normal_leaderboard">Leaderboard: Normal</string>
+    <string name="easy_leaderboard">Leaderboard: Easy</string>
+    <string name="custom_leaderboard">Leaderboard: Custom</string>
 
 
     <!-- Alert strings -->
