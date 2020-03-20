@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/buttonColor"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +37,7 @@
         android:id="@+id/play_button"
         android:layout_width="160dp"
         android:layout_height="80dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/buttonColor"
         android:text="@string/play_string"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -49,7 +50,7 @@
         android:id="@+id/stats_button"
         android:layout_width="160dp"
         android:layout_height="80dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/buttonColor"
         android:text="@string/stats_string"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/radioButtonColor"
             android:text="@string/easy_string"
             android:textSize="18sp" />
 
@@ -85,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/radioButtonColor"
             android:text="@string/normal_string"
             android:textAlignment="textStart"
             android:textSize="18sp" />
@@ -94,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/radioButtonColor"
             android:text="@string/hard_string"
             android:textSize="18sp" />
 
@@ -102,6 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/radioButtonColor"
             android:text="@string/custom_string"
             android:textSize="18sp" />
     </RadioGroup>

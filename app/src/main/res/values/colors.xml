@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6D7FE1</color>
-    <color name="colorPrimaryDark">#3148C8</color>
+    <color name="colorPrimary">#005904</color>
+    <color name="colorPrimaryDark">#001E01</color>
     <color name="colorAccent">#DAE1DC</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackground">#BDF878</color>
+    <color name="buttonColor">#ffa726</color>
+    <color name="radioButtonColor">#000000</color>
 </resources>

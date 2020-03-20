@@ -25,10 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/game_end_text"
+        android:textColor="#000000"
         android:textSize="42sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153" />
@@ -37,63 +38,73 @@
         android:id="@+id/youScoredText"
         android:layout_width="151dp"
         android:layout_height="44dp"
-        android:layout_marginTop="108dp"
         android:text="@string/you_scored_text"
+        android:textColor="#000000"
         android:textSize="28sp"
-        app:layout_constraintEnd_toStartOf="@+id/scoreText"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameEndText" />
+        app:layout_constraintTop_toBottomOf="@+id/gameEndText"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
         android:text="@string/score_text_default"
+        android:textColor="#000000"
         android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.648"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameEndText" />
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toEndOf="@+id/youScoredText"
+        app:layout_constraintTop_toBottomOf="@+id/gameEndText"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="@string/name_text"
+        android:textColor="#000000"
         android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.345"
+        app:layout_constraintHorizontal_bias="0.33"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/youScoredText" />
+        app:layout_constraintTop_toBottomOf="@+id/youScoredText"
+        app:layout_constraintVertical_bias="0.01999998" />
 
     <EditText
         android:id="@+id/nameEdit"
         android:layout_width="78dp"
         android:layout_height="44dp"
-        android:layout_marginTop="32dp"
+        android:backgroundTint="#000000"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="3"
         android:text="@string/name_edit_default"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toEndOf="@+id/nameText"
-        app:layout_constraintTop_toBottomOf="@+id/youScoredText" />
+        app:layout_constraintTop_toBottomOf="@+id/youScoredText"
+        app:layout_constraintVertical_bias="0.01999998" />
 
     <Button
         android:id="@+id/submit_results_button"
-        android:layout_width="174dp"
-        android:layout_height="106dp"
+        android:layout_width="239dp"
+        android:layout_height="143dp"
+        android:backgroundTint="@color/buttonColor"
         android:text="@string/submit_score_button"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintVertical_bias="0.7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

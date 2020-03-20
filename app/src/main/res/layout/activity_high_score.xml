@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".HighScoreActivity">
 
     <ImageButton
@@ -12,13 +13,13 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:background="?selectableItemBackgroundBorderless"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_24px"
-        android:background="?selectableItemBackgroundBorderless" />
+        app:srcCompat="@drawable/ic_arrow_back_24px" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
