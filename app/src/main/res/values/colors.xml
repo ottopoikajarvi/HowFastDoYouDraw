@@ -3,7 +3,7 @@
     <color name="colorPrimary">#005904</color>
     <color name="colorPrimaryDark">#001E01</color>
     <color name="colorAccent">@color/buttonColor</color>
-    <color name="colorBackground">#c5e1a5</color>
-    <color name="buttonColor">#ffcc80</color>
+    <color name="colorBackground">#A6D66F</color>
+    <color name="buttonColor">#F6B045</color>
     <color name="radioButtonColor">#000000</color>
 </resources>

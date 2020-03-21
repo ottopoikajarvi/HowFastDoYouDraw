@@ -3,6 +3,7 @@ package com.mobComp2020.howfastdoyoudraw
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_high_score.*
 
 class HighScoreActivity : AppCompatActivity() {
@@ -25,6 +26,8 @@ class HighScoreActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.pager)
         pagerAdapter = scorePagerAdapter(supportFragmentManager, difficulties)
         viewPager.adapter = pagerAdapter
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        tabLayout.setupWithViewPager(viewPager)
         viewPager.currentItem = 2  // Start with Hard-scores
     }
 }

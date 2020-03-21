@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.room.Room
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.highscore_fragment.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -38,6 +40,7 @@ class highScoreFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val bundle = arguments
         diffiInteger = bundle?.getInt(ARG_OBJECT)
         if (diffiInteger == 1) {
@@ -92,5 +95,20 @@ class scorePagerAdapter(fragmentManager: FragmentManager, private val difficulti
 
     override fun getCount(): Int {
         return difficulties.size
+    }
+    override fun getPageTitle(position: Int): CharSequence {
+        if (position == 0) {
+            return "Easy"
+        }
+        else if (position == 1) {
+            return "Normal"
+        }
+        else if (position == 2) {
+            return "Hard"
+        }
+        else if (position == 3) {
+            return "Custom"
+        }
+        else return "ERROR"
     }
 }
