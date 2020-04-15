@@ -20,7 +20,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var paint = Paint()
     private var paintLine = Paint() //Paint for outlines
     private var path = Path()
-
+    private var pairs = mutableListOf(Pair(0, 0), Pair(0, 1), Pair(1, 1), Pair(1, 0))
     //initialize the paint and everything else needed
     init {
         paint.color = Color.BLUE
@@ -33,22 +33,22 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         //Generates a path that is then drawn to canvas
-
+        pairs.shuffle()
         path.reset()
-        var xPoint = (Random.nextFloat()*0.8f + 0.13f)*canvas.width
-        var yPoint = (Random.nextFloat()*0.8f + 0.13f)*canvas.height
+        var xPoint = 0.0f
+        var yPoint = 0.0f
         var linesDrawn = 0
-        path.moveTo(xPoint, yPoint)
-        //4 draws per path
-        for (i in 1..4){
+        //path.moveTo(xPoint, yPoint)
+        //4 points per path
+        for (i in 0..3){
             var lastXPoint = xPoint
             var lastYPoint = yPoint
-            var limit = 0
+            var pair = pairs[i]
+            //Log.d("pair", pair.toString())
+
             //Log.d("size", canvas.width.toString() + canvas.height.toString())
-            xPoint = Random.nextInt(Math.max(((lastXPoint - canvas.width) / 2).toInt(), 30),
-                Math.min(((lastXPoint + canvas.width) / 2).toInt(), canvas.width - 30)).toFloat()
-            yPoint = Random.nextInt(Math.max(((lastYPoint - canvas.height) / 2).toInt(), 30),
-                Math.min(((lastYPoint + canvas.height) / 2).toInt(), canvas.height - 30)).toFloat()
+            xPoint = Random.nextInt(40, (canvas.width / 2) - 40).toFloat() + (pair.first * (canvas.width / 2))
+            yPoint = Random.nextInt(40, (canvas.height / 2) - 40).toFloat() + (pair.second * (canvas.height / 2))
 
             /* Original variant of shape generation, removed becuz bad
             next@ while(true) {
@@ -64,12 +64,15 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                 limit += 1
                 if (limit > 3 && linesDrawn > 2) break@next
             }*/
-            if (i % 2 == 0) {
+            if (i == 0) { //Starting location for drawing
+                path.moveTo(xPoint, yPoint)
+            }
+            else if (i == 2 || i == 3) {
                 path.quadTo(xPoint, lastYPoint, xPoint, yPoint)}
             else {
                 path.quadTo(yPoint, lastXPoint, xPoint, yPoint)
             }
-            linesDrawn += 1
+
 
         }
 
