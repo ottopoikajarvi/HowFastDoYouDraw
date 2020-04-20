@@ -24,13 +24,14 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var circlePaint = Paint()
     private var fingerPath = Path()
-    private var drawPath = Path()
     private var movement = Path()
     private var movementMeas = PathMeasure()
     private var pathMeas = PathMeasure()
     private var currentCircle = Path()
     private var distance = 0f
     private var victory = false
+    private var start = true
+    private var startPos = floatArrayOf(0f, 0f)
 
 
     //initialize the paint and everything else needed
@@ -42,69 +43,27 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         paintLine.color = Color.BLACK
         paintLine.strokeWidth = 48.0f
         paintLine.style = Paint.Style.STROKE
-        drawPath.moveTo(5.0f, 5.9f)
-        drawPath.lineTo(500.0f, 400.0f)
-        pathMeas.setPath(drawPath, false)
-        currentCircle.addCircle(5.0f, 5.9f, 50.0f, Path.Direction.CW)
+
 
         circlePaint.color = Color.RED
         circlePaint.strokeWidth = 20.0f
         circlePaint.style = Paint.Style.STROKE
 
 
+
     }
 
     override fun onDraw(canvas: Canvas) {
-        //Generates a path that is then drawn to canvas
-        pairs.shuffle()
-        path.reset()
-        var xPoint = 0.0f
-        var yPoint = 0.0f
-        var linesDrawn = 0
-        //path.moveTo(xPoint, yPoint)
-        //4 points per path
-        for (i in 0..3){
-            var lastXPoint = xPoint
-            var lastYPoint = yPoint
-            var pair = pairs[i]
-            //Log.d("pair", pair.toString())
-
-            //Log.d("size", canvas.width.toString() + canvas.height.toString())
-            xPoint = Random.nextInt(40, (canvas.width / 2) - 40).toFloat() + (pair.first * (canvas.width / 2))
-            yPoint = Random.nextInt(40, (canvas.height / 2) - 40).toFloat() + (pair.second * (canvas.height / 2))
-
-            /* Original variant of shape generation, removed becuz bad
-            next@ while(true) {
-                xPoint += Random.nextInt(-canvas.width / 2, canvas.width / 2)
-                yPoint += Random.nextInt(-canvas.height / 2, canvas.height / 2)
-                if (xPoint > 10 && xPoint < canvas.width - 10 && yPoint > 10 && yPoint < canvas.height - 10) {
-                    if ((xPoint - lastXPoint).absoluteValue > (canvas.width / 8) && (yPoint - lastYPoint).absoluteValue > (canvas.height / 8)) {
-                        break@next
-                    }
-                }
-                xPoint = lastXPoint
-                yPoint = lastYPoint
-                limit += 1
-                if (limit > 3 && linesDrawn > 2) break@next
-            }*/
-            if (i == 0) { //Starting location for drawing
-                path.moveTo(xPoint, yPoint)
-            }
-            else if (i == 2 || i == 3) {
-                path.quadTo(xPoint, lastYPoint, xPoint, yPoint)}
-            else {
-                path.quadTo(yPoint, lastXPoint, xPoint, yPoint)
-            }
-
-
-        }
-
         canvas.apply {
+            if (start) {
+                createNewPath()
+
+                start = false
+            }
 
             drawPath(path, paintLine)
             drawPath(path, paint)
 
-            drawPath(drawPath, paint)
             if (!currentCircle.isEmpty) {
                 drawPath(currentCircle, circlePaint)
             }
@@ -146,7 +105,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                     fingerPath.reset()
                     movement.reset()
                     currentCircle.reset()
-                    currentCircle.addCircle(5.0f, 5.9f, 50.0f, Path.Direction.CW)
+                    currentCircle.addCircle(startPos[0], startPos[1], 50.0f, Path.Direction.CW)
                     distance = 0f
                 }
                 invalidate()
@@ -173,10 +132,21 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                         context.toast("VICTORY")
                         victory = true
                         distance = 0f
+                        path.reset()
+                        createNewPath()
                         return true
                     }
                     pathMeas.getPosTan(distance, pos, null)
                     currentCircle.addCircle(pos[0], pos[1], 50.0f, Path.Direction.CW)
+                } else {
+                    //The user missed the circle
+                    if (!victory) {
+                        fingerPath.reset()
+                        movement.reset()
+                        currentCircle.reset()
+                        currentCircle.addCircle(startPos[0], startPos[1], 50.0f, Path.Direction.CW)
+                        distance = 0f
+                    }
                 }
                 invalidate()
 
@@ -185,6 +155,61 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
 
         return true
+    }
+
+    //Creates a path for the user to solve
+    private fun createNewPath() {
+        //Generates a path that is then drawn to canvas
+        pairs.shuffle()
+        path.reset()
+        var xPoint = 0.0f
+        var yPoint = 0.0f
+        var linesDrawn = 0
+        //path.moveTo(xPoint, yPoint)
+        //4 points per path
+        for (i in 0..3){
+            var lastXPoint = xPoint
+            var lastYPoint = yPoint
+            var pair = pairs[i]
+            //Log.d("pair", pair.toString())
+
+            //Log.d("size", canvas.width.toString() + canvas.height.toString())
+            xPoint = Random.nextInt(40, (width / 2) - 40).toFloat() + (pair.first * (width / 2))
+            yPoint = Random.nextInt(40, (height / 2) - 40).toFloat() + (pair.second * (height / 2))
+
+            /* Original variant of shape generation, removed becuz bad
+            next@ while(true) {
+                xPoint += Random.nextInt(-canvas.width / 2, canvas.width / 2)
+                yPoint += Random.nextInt(-canvas.height / 2, canvas.height / 2)
+                if (xPoint > 10 && xPoint < canvas.width - 10 && yPoint > 10 && yPoint < canvas.height - 10) {
+                    if ((xPoint - lastXPoint).absoluteValue > (canvas.width / 8) && (yPoint - lastYPoint).absoluteValue > (canvas.height / 8)) {
+                        break@next
+                    }
+                }
+                xPoint = lastXPoint
+                yPoint = lastYPoint
+                limit += 1
+                if (limit > 3 && linesDrawn > 2) break@next
+            }*/
+            if (i == 0) { //Starting location for drawing
+                path.moveTo(xPoint, yPoint)
+            }
+            else if (i == 2 || i == 3) {
+                path.quadTo(xPoint, lastYPoint, xPoint, yPoint)}
+            else {
+                path.quadTo(yPoint, lastXPoint, xPoint, yPoint)
+            }
+
+
+
+
+        }
+
+        pathMeas.setPath(path, false)
+
+        pathMeas.getPosTan(0f, startPos, null)
+        currentCircle.addCircle(startPos[0], startPos[1], 50.0f, Path.Direction.CW)
+        victory = false
     }
 
 }
