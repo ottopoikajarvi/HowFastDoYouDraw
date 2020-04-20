@@ -1,5 +1,6 @@
 package com.mobComp2020.howfastdoyoudraw
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -32,6 +33,9 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var victory = false
     private var start = true
     private var startPos = floatArrayOf(0f, 0f)
+
+    //Tracks points
+    private var points = 0
 
 
     //initialize the paint and everything else needed
@@ -129,7 +133,8 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                     var pos: FloatArray = floatArrayOf(0f, 0f)
                     distance += movementMeas.length
                     if (distance > pathMeas.length) {
-                        context.toast("VICTORY")
+                        points += 1
+                        setPointsAmount(points)
                         victory = true
                         distance = 0f
                         path.reset()
@@ -210,6 +215,24 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         pathMeas.getPosTan(0f, startPos, null)
         currentCircle.addCircle(startPos[0], startPos[1], 50.0f, Path.Direction.CW)
         victory = false
+
+
     }
+
+    companion object {
+        var points = 0
+        fun setPointsAmount(pointAmount: Int) {
+            points = pointAmount
+        }
+
+        fun getPointsEnd(): Int = points
+    }
+
+
+    fun getPointsHere(): Int {
+        return points
+    }
+
+
 
 }
