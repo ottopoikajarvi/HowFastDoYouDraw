@@ -1,7 +1,10 @@
 package com.mobComp2020.howfastdoyoudraw
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -39,9 +42,42 @@ class MainActivity : AppCompatActivity() {
             db.close()
         }*/
 
+
+        val sharedPref = getSharedPreferences(
+            getString(R.string.settings_file), Context.MODE_PRIVATE)
+
+        //Radiogroup for difficulty selection, chosen difficulty is saved to prefs
+        if (sharedPref.contains(getString(R.string.chosen_diff))) {
+            val diffSetting = sharedPref.getInt(getString(R.string.chosen_diff), -1)
+            radioGroup.check(radioGroup.getChildAt(diffSetting).id)
+        }
+        else {
+            radioGroup.check(radioGroup.getChildAt(1).id)
+            with (sharedPref.edit()) {
+                putInt(getString(R.string.chosen_diff), 1)
+                apply()
+            }
+        }
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val radioButton = radioGroup.findViewById<RadioButton>(checkedId)
+            val idx: Int = radioGroup.indexOfChild(radioButton)
+            with (sharedPref.edit()) {
+                putInt(getString(R.string.chosen_diff), idx)
+                apply()
+            }
+            //Log.d("radio", checkedId.toString())
+        }
+
         //Play button
         play_button.setOnClickListener {
             val intent = Intent(applicationContext, PlayActivity::class.java)
+
+            //Bundle for game timer
+            val checkedId = radioGroup.checkedRadioButtonId
+            val radioButton = radioGroup.findViewById<RadioButton>(checkedId)
+            val idx: Int = radioGroup.indexOfChild(radioButton)
+            intent.putExtra("timerset", idx)
             startActivity(intent)
         }
 

@@ -1,5 +1,6 @@
 package com.mobComp2020.howfastdoyoudraw
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -21,6 +22,19 @@ class PlayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
+
+        val diffSetting = intent.extras?.getInt("timerset")
+        if (diffSetting == 1) elapsedTime = 60
+        else if (diffSetting == 2) elapsedTime = 90
+        else if (diffSetting == 0) elapsedTime = 45
+        else if (diffSetting == 3) {
+            val sharedPref = getSharedPreferences(
+                getString(R.string.settings_file), Context.MODE_PRIVATE)
+            if (sharedPref.contains(getString(R.string.custom_length))) {
+                elapsedTime = sharedPref.getInt(getString(R.string.custom_length), -1)
+            }
+        }
+        else elapsedTime = 60
 
 
         //Start the game
