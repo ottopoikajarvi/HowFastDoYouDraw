@@ -18,6 +18,7 @@ class PlayActivity : AppCompatActivity() {
     private var elapsedTime = 60
     private var points = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
@@ -32,11 +33,7 @@ class PlayActivity : AppCompatActivity() {
 
         //Skip current figure
         skip_button.setOnClickListener {
-            //TODO
-            //End game for demonstration purposes
-            //Change content view for the game end
-
-            gameEnd()
+            this.gameView.skipCurrent()
         }
 
         //Back button back to main menu
