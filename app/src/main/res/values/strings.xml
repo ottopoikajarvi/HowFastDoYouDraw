@@ -52,6 +52,7 @@
     <string name="start_game_button">HOW TO PLAY:\n Move your finger along \n the paths shown the screen. The \n more shapes you follow \n during the timer, the better \n your score will be. \n \n Tap when you are ready to start.</string>
     <string name="skip_figure_button">SKIP</string>
     <string name="submit_score_button">Submit the results and go \n back to main menu</string>
+    <string name="skip_text">Skips left: 3</string>
 
     <string name="game_end_text">Game ended</string>
     <string name="you_scored_text">Your score: </string>
