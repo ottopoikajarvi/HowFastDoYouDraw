@@ -41,6 +41,9 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     //Tracks points
     private var points = 0
 
+    //For skipping
+    private var skipAmount = 3
+    private var skipping = false
 
     //initialize the paint and everything else needed
     init {
@@ -277,6 +280,20 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     }
 
+    //Skip the current shape, max 3 skips per game
+    fun skipCurrent(){
+        skipping = true
+        skipAmount -= 1
+        if (skipAmount < 0) {
+            return
+        }
+        distance = 0f
+        path.reset()
+        currentCircle.reset()
+        createNewPath()
+        invalidate()
+    }
+
     companion object {
         var points = 0
         fun setPointsAmount(pointAmount: Int) {
@@ -284,12 +301,11 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         }
 
         fun getPointsEnd(): Int = points
+
+
     }
 
 
-    fun getPointsHere(): Int {
-        return points
-    }
 
 
 
