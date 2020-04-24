@@ -86,16 +86,16 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
             finish()
         }
 
+        //Check whether the user has set motion sensor enabled/disabled (enabled by default)
+        sensorEnabled = sharedPref.getBoolean(getString(R.string.motion_set), true)
         //Acceleration sensor
-        if (sensorEnabled) {
-
-            //Sensor stuff largely adapted from
-            // https://stackoverflow.com/questions/51710147/kotlin-using-motion-sensor
-            this.sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)?.let {
-                this.linearAcceleration = it
-            }
+        //Sensor stuff largely adapted from
+        // https://stackoverflow.com/questions/51710147/kotlin-using-motion-sensor
+        this.sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)?.let {
+            this.linearAcceleration = it
         }
+
 
 
     }
@@ -164,9 +164,7 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
-        if (sensorManager != null) {
-            sensorManager.unregisterListener(this)
-        }
+        sensorManager.unregisterListener(this)
     }
 
 
