@@ -24,7 +24,9 @@ class SettingsActivity : AppCompatActivity() {
             //Check that the custom game length is not empty
             if (editText.text.isNotEmpty()) {
                 var gameLength = valueOf(editText.text.toString())
-                //Check that the custom game length is not 0 seconds
+                //Check that the custom game length is not 0 seconds or over 599 seconds
+                if (gameLength > 599)
+                    gameLength = 599
                 if (gameLength != 0)
                     putInt(getString(R.string.custom_length), gameLength)
                 apply()
@@ -74,7 +76,9 @@ class SettingsActivity : AppCompatActivity() {
                 //Check that the custom game length is not empty
                 if (editText.text.isNotEmpty()) {
                     var gameLength = valueOf(editText.text.toString())
-                    //Check that the custom game length is not 0 seconds
+                    //Check that the custom game length is not 0 seconds or over 599 seconds
+                    if (gameLength > 599)
+                        gameLength = 599
                     if (gameLength != 0)
                         putInt(getString(R.string.custom_length), gameLength)
                     apply()
