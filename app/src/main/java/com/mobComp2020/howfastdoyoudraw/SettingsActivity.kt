@@ -90,6 +90,9 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)*/
         }
 
+        /*
+        Listener for the button that wipes all the scores from the database
+         */
         scorewipe_button.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.confirm_string)

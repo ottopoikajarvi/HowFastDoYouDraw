@@ -1,10 +1,8 @@
 package com.mobComp2020.howfastdoyoudraw
 
 import android.content.Context
-import android.content.Intent.getIntent
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import kotlin.random.Random
@@ -27,6 +25,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var path = Path()
     private var pairs = mutableListOf(Pair(0, 0), Pair(0, 1), Pair(1, 1), Pair(1, 0))
 
+    //Variables needed for the game
     private var circlePaint = Paint()
     private var fingerPath = Path()
     private var movement = Path()
@@ -50,6 +49,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         val sharedPref = context.getSharedPreferences(
             context.getString(R.string.settings_file), Context.MODE_PRIVATE)
 
+        //Get the chosen difficulty
         if (sharedPref.contains(context.getString(R.string.chosen_diff))) {
             diffSetting = sharedPref.getInt(context.getString(R.string.chosen_diff), 1)
         }
@@ -58,6 +58,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         paint.style = Paint.Style.STROKE
         paintLine.color = Color.BLACK
         paintLine.style = Paint.Style.STROKE
+        //Different paint for the circle
         circlePaint.color = Color.RED
         circlePaint.strokeWidth = 20.0f
         circlePaint.style = Paint.Style.STROKE
@@ -115,6 +116,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         canvas.apply {
+            //First path of the game
             if (start) {
                 createNewPath()
 
@@ -124,6 +126,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             drawPath(path, paintLine)
             drawPath(path, paint)
 
+            //If the red circle is defined
             if (!currentCircle.isEmpty) {
                 drawPath(currentCircle, circlePaint)
             }
@@ -132,35 +135,41 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
     //This function gets called when user touches on the screen
+    //Involves the game logic
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val x = event?.x
         val y = event?.y
 
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
+                //Start the movement tracking
                 movement.moveTo(x!!, y!!)
                 fingerPath.reset()
+                //Circle around the current position of the finger
                 fingerPath.addCircle(x!!, y!!, circleRad, Path.Direction.CW)
                 var region = Region()
                 val clip = Region(0, 0, width, height)
                 region.setPath(fingerPath, clip)
                 var region2 = Region()
                 region2.setPath(currentCircle, clip)
+                //Check whether the circle around the finger position and the red circle
+                //intersect
                 if (region.op(region2, Region.Op.INTERSECT)) {
-                    // Collision!
-                    Log.d("collision", "yes")
+                    //Move the red circle further
                     currentCircle.reset()
                     var pos: FloatArray = floatArrayOf(0f, 0f)
                     distance += 10.0f
                     pathMeas.getPosTan(distance, pos, null)
-                    Log.d("collisionpositions", pos[0].toString())
                     currentCircle.addCircle(pos[0], pos[1], 10.0f, Path.Direction.CW)
 
                 }
+                //Draw the game components
                 invalidate()
 
             }
+            //User lifts their finger
             MotionEvent.ACTION_UP -> {
+                //If the user did not follow the path to the end, reset all variables
                 if (!victory) {
                     fingerPath.reset()
                     movement.reset()
@@ -173,7 +182,9 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             }
             MotionEvent.ACTION_MOVE -> {
                 fingerPath.reset()
+                //Circle around the current position of the finger
                 fingerPath.addCircle(x!!, y!!, circleRad, Path.Direction.CW)
+                //add last movement to the movement PathMeasure
                 movement.lineTo(x!!, y!!)
                 movementMeas.setPath(movement, false)
                 movement.reset()
@@ -183,11 +194,16 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                 region.setPath(fingerPath, clip)
                 var region2 = Region()
                 region2.setPath(currentCircle, clip)
+                //Check whether the circle around the finger position and the red circle
+                //intersect
                 if (region.op(region2, Region.Op.INTERSECT)) {
                     // Collision!
+                    //Move the red circle further
                     currentCircle.reset()
                     var pos: FloatArray = floatArrayOf(0f, 0f)
                     distance += movementMeas.length
+                    //If the user has followed the whole path, award a point and create a new
+                    //path
                     if (distance > pathMeas.length) {
                         points += 1
                         setPointsAmount(points)
@@ -197,10 +213,12 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                         createNewPath()
                         return true
                     }
+                    //If the user is not at the end of the path yet, move the red circle
+                    //further
                     pathMeas.getPosTan(distance, pos, null)
                     currentCircle.addCircle(pos[0], pos[1], 50.0f, Path.Direction.CW)
                 } else {
-                    //The user missed the circle
+                    //The user missed the circle, reset all variables
                     if (!victory) {
                         fingerPath.reset()
                         movement.reset()
@@ -287,6 +305,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         if (skipAmount < 0) {
             return
         }
+        //Reset variables
         distance = 0f
         path.reset()
         currentCircle.reset()
@@ -294,6 +313,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         invalidate()
     }
 
+    //Used by PlayActivity to get the amount of points at the end of the game
     companion object {
         var points = 0
         fun setPointsAmount(pointAmount: Int) {
