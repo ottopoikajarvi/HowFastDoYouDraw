@@ -54,7 +54,8 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
         }
         else elapsedTime = 60
 
-
+        val startTime = turnIntoTime(elapsedTime)
+        timer.text = startTime
         //Start the game
         start_button.setOnClickListener {
             start_button.visibility = View.GONE
@@ -180,7 +181,7 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
     private fun turnIntoTime(timeStamp: Int): String {
         var timeLeft = timeStamp
         var minutes = 0
-        while (timeLeft > 60) {
+        while (timeLeft > 59) {
             timeLeft -= 60
             minutes += 1
         }
