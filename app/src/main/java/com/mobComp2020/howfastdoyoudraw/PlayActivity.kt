@@ -1,6 +1,7 @@
 package com.mobComp2020.howfastdoyoudraw
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -35,27 +36,32 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
     private val minTimeBetweenSkips = 1000
     private var lastSkipTime: Long = 0
 
+    private lateinit var sharedPref:SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
+        sharedPref = getSharedPreferences(
+            getString(R.string.settings_file), Context.MODE_PRIVATE)
 
         val diffSetting = intent.extras?.getInt("timerset")
         if (diffSetting == 1) elapsedTime = 60
         else if (diffSetting == 2) elapsedTime = 90
         else if (diffSetting == 0) elapsedTime = 45
         else if (diffSetting == 3) {
-            val sharedPref = getSharedPreferences(
-                getString(R.string.settings_file), Context.MODE_PRIVATE)
+
             if (sharedPref.contains(getString(R.string.custom_length))) {
                 elapsedTime = sharedPref.getInt(getString(R.string.custom_length), -1)
             }
         }
         else elapsedTime = 60
 
+
         val startTime = turnIntoTime(elapsedTime)
         timer.text = startTime
+
+
         //Start the game
         start_button.setOnClickListener {
             start_button.visibility = View.GONE
@@ -102,12 +108,24 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.game_end)
         scoreText.setText(points.toString())
 
+        //Put the player name from last time as default
+        if (sharedPref.contains(getString(R.string.player_name))) {
+            nameEdit.setText(sharedPref.getString(getString(R.string.player_name), "ABC"))
+        }
+
 
         submit_results_button.setOnClickListener {
             val difficulty = intent.extras?.getInt("timerset")
             //Submit scores here
             val name = nameEdit.text
             val score = points
+
+            //Save the name for the next time for the convenience of the player
+            with (sharedPref.edit()) {
+                putString(getString(R.string.player_name), name.toString())
+                apply()
+            }
+
             doAsync {
                 val db = Room.databaseBuilder(
                     applicationContext,
