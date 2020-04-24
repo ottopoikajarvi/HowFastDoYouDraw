@@ -100,7 +100,10 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
         //Switch to game end view
         setContentView(R.layout.game_end)
         scoreText.setText(points.toString())
+
+
         submit_results_button.setOnClickListener {
+            val difficulty = intent.extras?.getInt("timerset")
             //Submit scores here
             val name = nameEdit.text
             val score = points
@@ -114,7 +117,7 @@ class PlayActivity : AppCompatActivity(), SensorEventListener {
                     uid = null,
                     username = name.toString(),
                     score = score,
-                    difficulty = 3,
+                    difficulty = difficulty!! + 1,
                     timestamp = System.currentTimeMillis()
                 )
                 db.highScoreDao().insert(hscore)
