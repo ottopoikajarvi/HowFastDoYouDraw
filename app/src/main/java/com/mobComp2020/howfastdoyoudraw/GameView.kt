@@ -1,16 +1,14 @@
 package com.mobComp2020.howfastdoyoudraw
 
-import android.app.Activity
 import android.content.Context
+import android.content.Intent.getIntent
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
-import java.lang.Math.abs
-import kotlin.math.absoluteValue
-import kotlin.random.Random
 import android.view.MotionEvent
 import android.view.View
-import org.jetbrains.anko.toast
+import kotlin.random.Random
+
 
 /**
  * This is the custom game view
@@ -18,6 +16,12 @@ import org.jetbrains.anko.toast
 class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var paint = Paint()
+
+    //Variables for difficulties
+    private var diffSetting = 0
+    private var drawAmount = 3
+    private var gameLength = 60
+    private var circleRad = 100.0f
 
     private var paintLine = Paint() //Paint for outlines
     private var path = Path()
@@ -43,19 +47,68 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     //initialize the paint and everything else needed
     init {
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.settings_file), Context.MODE_PRIVATE)
+
+        if (sharedPref.contains(context.getString(R.string.chosen_diff))) {
+            diffSetting = sharedPref.getInt(context.getString(R.string.chosen_diff), 1)
+        }
+
         paint.color = Color.BLUE
-        paint.strokeWidth = 40.0f
         paint.style = Paint.Style.STROKE
-
         paintLine.color = Color.BLACK
-        paintLine.strokeWidth = 48.0f
         paintLine.style = Paint.Style.STROKE
-
-
         circlePaint.color = Color.RED
         circlePaint.strokeWidth = 20.0f
         circlePaint.style = Paint.Style.STROKE
+        if (diffSetting == 1) {  //Normal difficulty
+            drawAmount = 3
+            circleRad = 100.0f
 
+            paint.strokeWidth = 40.0f
+            paintLine.strokeWidth = 48.0f
+        }
+        else if (diffSetting == 0) { //Easy
+            drawAmount = 2
+            circleRad = 120.0f
+
+            paint.strokeWidth = 50.0f
+            paintLine.strokeWidth = 60.0f
+        }
+        else if (diffSetting == 2) { //Hard
+            drawAmount = 4
+            circleRad = 80.0f
+
+            paint.strokeWidth = 36.0f
+            paintLine.strokeWidth = 42.0f
+        }
+        else { //Custom
+            if (sharedPref.contains(context.getString(R.string.custom_shape))) {
+                val shapeSetting = sharedPref.getInt(context.getString(R.string.custom_shape), -1)
+                if (shapeSetting == 0) drawAmount = 2
+                else if (shapeSetting == 1) drawAmount = 3
+                else if (shapeSetting == 2) drawAmount = 4
+            }
+
+            if (sharedPref.contains(context.getString(R.string.custom_width))) {
+                val lineSetting = sharedPref.getInt(context.getString(R.string.custom_width), -1)
+                if (lineSetting == 0) {
+                    circleRad = 120.0f
+                    paint.strokeWidth = 50.0f
+                    paintLine.strokeWidth = 60.0f
+                }
+                else if (lineSetting == 1) {
+                    circleRad = 100.0f
+                    paint.strokeWidth = 40.0f
+                    paintLine.strokeWidth = 48.0f
+                }
+                else if (lineSetting == 2) {
+                    circleRad = 80.0f
+                    paint.strokeWidth = 36.0f
+                    paintLine.strokeWidth = 42.0f
+                }
+            }
+        }
 
 
     }
@@ -87,7 +140,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             MotionEvent.ACTION_DOWN -> {
                 movement.moveTo(x!!, y!!)
                 fingerPath.reset()
-                fingerPath.addCircle(x!!, y!!, 100.0f, Path.Direction.CW)
+                fingerPath.addCircle(x!!, y!!, circleRad, Path.Direction.CW)
                 var region = Region()
                 val clip = Region(0, 0, width, height)
                 region.setPath(fingerPath, clip)
@@ -120,7 +173,7 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             }
             MotionEvent.ACTION_MOVE -> {
                 fingerPath.reset()
-                fingerPath.addCircle(x!!, y!!, 100.0f, Path.Direction.CW)
+                fingerPath.addCircle(x!!, y!!, circleRad, Path.Direction.CW)
                 movement.lineTo(x!!, y!!)
                 movementMeas.setPath(movement, false)
                 movement.reset()
@@ -173,17 +226,22 @@ class GameView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         var xPoint = 0.0f
         var yPoint = 0.0f
         var linesDrawn = 0
+        var pair = Pair(0, 0)
         //path.moveTo(xPoint, yPoint)
         //4 points per path
-        for (i in 0..3){
+        for (i in 0..drawAmount){
             var lastXPoint = xPoint
             var lastYPoint = yPoint
-            var pair = pairs[i]
+            pair = if (i > 3) {
+                pairs[1]
+            } else {
+                pairs[i]
+            }
             //Log.d("pair", pair.toString())
 
             //Log.d("size", canvas.width.toString() + canvas.height.toString())
-            xPoint = Random.nextInt(40, (width / 2) - 40).toFloat() + (pair.first * (width / 2))
-            yPoint = Random.nextInt(40, (height / 2) - 40).toFloat() + (pair.second * (height / 2))
+            xPoint = Random.nextInt(50, (width / 2) - 40).toFloat() + (pair.first * (width / 2))
+            yPoint = Random.nextInt(50, (height / 2) - 40).toFloat() + (pair.second * (height / 2))
 
             /* Original variant of shape generation, removed becuz bad
             next@ while(true) {

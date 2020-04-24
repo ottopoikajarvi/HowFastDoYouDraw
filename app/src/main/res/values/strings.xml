@@ -59,4 +59,12 @@
     <string name="score_text_default">0</string>
     <string name="name_text">Your name:</string>
     <string name="name_edit_default">ABC</string>
+
+    <!-- Shared preferences strings -->
+    <string name="settings_file">com.mobComp2020.howfastdoyoudraw</string>
+    <string name="motion_set">motioncontrols</string>
+    <string name="custom_shape">customshape</string>
+    <string name="custom_width">customwidth</string>
+    <string name="custom_length">customlength</string>
+    <string name="chosen_diff">chosendiff</string>
 </resources>
