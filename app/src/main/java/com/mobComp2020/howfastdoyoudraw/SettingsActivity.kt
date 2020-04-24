@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.settings_activity.*
+import org.jetbrains.anko.doAsync
 import java.lang.Integer.valueOf
 
 
@@ -77,6 +79,16 @@ class SettingsActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.yes_string,
                     DialogInterface.OnClickListener { dialog, id ->
                         // Delete scores
+                        doAsync {
+                            val db = Room.databaseBuilder(
+                                applicationContext,
+                                AppDatabase::class.java,
+                                "highScores"
+                            ).build()
+                            db.highScoreDao().deleteHighScores()
+
+                            db.close()
+                        }
                     })
                 .setNegativeButton(R.string.cancel_string,
                     DialogInterface.OnClickListener { dialog, id ->
