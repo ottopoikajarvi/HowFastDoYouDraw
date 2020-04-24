@@ -21,8 +21,15 @@ class SettingsActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences(
             getString(R.string.settings_file), Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
-            putInt(getString(R.string.custom_length), valueOf(editText.text.toString()))
-            apply()
+            //Check that the custom game length is not empty
+            if (editText.text.isNotEmpty()) {
+                var gameLength = valueOf(editText.text.toString())
+                //Check that the custom game length is not 0 seconds
+                if (gameLength != 0)
+                    putInt(getString(R.string.custom_length), gameLength)
+                apply()
+            }
+
         }
         finish()
     }
@@ -64,8 +71,14 @@ class SettingsActivity : AppCompatActivity() {
         back_from_settings.setOnClickListener {
             //Parempi koska ei riko firmiksen back-nappia
             with (sharedPref.edit()) {
-                putInt(getString(R.string.custom_length), valueOf(editText.text.toString()))
-                apply()
+                //Check that the custom game length is not empty
+                if (editText.text.isNotEmpty()) {
+                    var gameLength = valueOf(editText.text.toString())
+                    //Check that the custom game length is not 0 seconds
+                    if (gameLength != 0)
+                        putInt(getString(R.string.custom_length), gameLength)
+                    apply()
+                }
             }
             finish()
             /*
