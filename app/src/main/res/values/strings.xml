@@ -49,7 +49,7 @@
 
     <!-- PlayActivity Button etc strings -->
     <string name="timer_text">1:00</string>
-    <string name="start_game_button">HOW TO PLAY:\n Move your finger along \n the paths shown the screen. The \n more shapes you follow \n during the timer, the better \n your score will be. \n \n Tap when you are ready to start.</string>
+    <string name="start_game_button">HOW TO PLAY:\n Move the red circle along \n the paths shown in the \n screen with your finger. The \n more shapes you follow \n during the timer, the better \n your score will be. \n \n Tap when you are ready to start.</string>
     <string name="skip_figure_button">SKIP</string>
     <string name="submit_score_button">Submit the results and go \n back to main menu</string>
     <string name="skip_text">Skips left: 3</string>
@@ -67,4 +67,5 @@
     <string name="custom_width">customwidth</string>
     <string name="custom_length">customlength</string>
     <string name="chosen_diff">chosendiff</string>
+    <string name="player_name">ABC</string>
 </resources>
