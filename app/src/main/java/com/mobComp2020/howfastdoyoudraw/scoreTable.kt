@@ -19,6 +19,9 @@ interface HighScoreDao {
 
     @Query("SELECT * FROM highScores WHERE difficulty = :diff ORDER BY score DESC")
     fun getHighScores(diff: Int?): List<HighScore>
+
+    @Query("DELETE FROM highScores")
+    fun deleteHighScores()
 }
 
 class Converters {

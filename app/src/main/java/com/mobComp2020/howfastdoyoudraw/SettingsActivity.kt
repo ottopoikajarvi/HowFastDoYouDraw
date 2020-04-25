@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.settings_activity.*
+import org.jetbrains.anko.doAsync
 import java.lang.Integer.valueOf
 
 
@@ -19,8 +21,17 @@ class SettingsActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences(
             getString(R.string.settings_file), Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
-            putInt(getString(R.string.custom_length), valueOf(editText.text.toString()))
-            apply()
+            //Check that the custom game length is not empty
+            if (editText.text.isNotEmpty()) {
+                var gameLength = valueOf(editText.text.toString())
+                //Check that the custom game length is not 0 seconds or over 599 seconds
+                if (gameLength > 599)
+                    gameLength = 599
+                if (gameLength != 0)
+                    putInt(getString(R.string.custom_length), gameLength)
+                apply()
+            }
+
         }
         finish()
     }
@@ -62,8 +73,16 @@ class SettingsActivity : AppCompatActivity() {
         back_from_settings.setOnClickListener {
             //Parempi koska ei riko firmiksen back-nappia
             with (sharedPref.edit()) {
-                putInt(getString(R.string.custom_length), valueOf(editText.text.toString()))
-                apply()
+                //Check that the custom game length is not empty
+                if (editText.text.isNotEmpty()) {
+                    var gameLength = valueOf(editText.text.toString())
+                    //Check that the custom game length is not 0 seconds or over 599 seconds
+                    if (gameLength > 599)
+                        gameLength = 599
+                    if (gameLength != 0)
+                        putInt(getString(R.string.custom_length), gameLength)
+                    apply()
+                }
             }
             finish()
             /*
@@ -71,12 +90,25 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)*/
         }
 
+        /*
+        Listener for the button that wipes all the scores from the database
+         */
         scorewipe_button.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.confirm_string)
                 .setPositiveButton(R.string.yes_string,
                     DialogInterface.OnClickListener { dialog, id ->
                         // Delete scores
+                        doAsync {
+                            val db = Room.databaseBuilder(
+                                applicationContext,
+                                AppDatabase::class.java,
+                                "highScores"
+                            ).build()
+                            db.highScoreDao().deleteHighScores()
+
+                            db.close()
+                        }
                     })
                 .setNegativeButton(R.string.cancel_string,
                     DialogInterface.OnClickListener { dialog, id ->

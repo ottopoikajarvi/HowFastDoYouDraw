@@ -67,4 +67,5 @@
     <string name="custom_width">customwidth</string>
     <string name="custom_length">customlength</string>
     <string name="chosen_diff">chosendiff</string>
+    <string name="player_name">ABC</string>
 </resources>
