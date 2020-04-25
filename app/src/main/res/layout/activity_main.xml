@@ -116,18 +116,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.645" />
 
-    <!-- Icon made by Freepik from www.flaticon.com -->
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="36dp"
+        android:layout_marginEnd="48dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.53"
-        app:srcCompat="@drawable/ic_draw_check_mark" />
+        app:srcCompat="@mipmap/ic_menu_logo_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
