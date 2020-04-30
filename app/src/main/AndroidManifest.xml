@@ -11,15 +11,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.mobComp2020.howfastdoyoudraw.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings"
             android:parentActivityName="com.mobComp2020.howfastdoyoudraw.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobComp2020.howfastdoyoudraw.MainActivity" />
         </activity>
-        <activity android:name="com.mobComp2020.howfastdoyoudraw.PlayActivity" />
-        <activity android:name="com.mobComp2020.howfastdoyoudraw.HighScoreActivity" />
-        <activity android:name="com.mobComp2020.howfastdoyoudraw.MainActivity">
+        <activity android:name="com.mobComp2020.howfastdoyoudraw.PlayActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.mobComp2020.howfastdoyoudraw.HighScoreActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobComp2020.howfastdoyoudraw.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
